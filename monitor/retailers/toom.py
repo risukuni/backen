@@ -8,16 +8,17 @@ Datenquellen (oeffentlich, reverse-engineered von toom.de):
                  -> [{"articleId","deliveryType","availableQuantity"}]
                  availableQuantity > 0  ==  im Markt abholbar.
 
-Status: VERIFIZIERT gegen echte Maerkte (Raum Koeln). articleId = letzte
-Zahl der Produkt-URL (z. B. .../9350668).
+Die Bestandsabfragen laufen PARALLEL (ThreadPool), damit ein Check schnell ist.
 """
 from __future__ import annotations
 
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor
 
 from ..geo import geocode_plz, haversine_km
 from ..models import Product, StoreAvailability
+from ..web import make_session
 from .base import Retailer
 
 MARKETS_URL = "https://api.toom.de/public/api/markets"
@@ -29,6 +30,7 @@ POST_HEADERS = {
     "Referer": "https://toom.de/",
     "X-Requested-With": "XMLHttpRequest",
 }
+MAX_WORKERS = 8
 
 
 class Toom(Retailer):
@@ -61,15 +63,13 @@ class Toom(Retailer):
         found.sort(key=lambda x: x[0])
         return found
 
-    def _stock_for_market(self, article_ids: list[str], market_id: int) -> dict[str, int]:
+    def _stock_for_market(self, session, article_ids: list[str], market_id: int) -> dict[str, int]:
         body = [
             {"articleId": a, "marketId": market_id, "deliveryType": "PICKUP", "quantity": 1}
             for a in article_ids
         ]
         try:
-            r = self.session.post(
-                STOCK_URL, data=json.dumps(body), headers=POST_HEADERS, timeout=25
-            )
+            r = session.post(STOCK_URL, data=json.dumps(body), headers=POST_HEADERS, timeout=25)
             data = r.json()
         except Exception as exc:  # noqa: BLE001
             print(f"[toom] Bestand Markt {market_id} fehlgeschlagen: {exc}")
@@ -85,7 +85,6 @@ class Toom(Retailer):
 
     def check(self, products: list[Product]) -> list[StoreAvailability]:
         results: list[StoreAvailability] = []
-        # articleId je Produkt aus der URL
         art_by_product = {}
         for p in products:
             art = self._article_id(self.product_url(p.key))
@@ -100,15 +99,22 @@ class Toom(Retailer):
             return results
         print(f"[toom] {len(markets)} Maerkte im {self.radius_km:.0f}-km-Umkreis")
 
-        # Session/Cookies aufwaermen
         try:
-            self.session.get("https://toom.de/", timeout=25)
+            self.session.get("https://toom.de/", timeout=25)  # Session aufwaermen
         except Exception:  # noqa: BLE001
             pass
 
         article_ids = list(art_by_product.values())
-        for dist, m in markets:
-            qty_by_art = self._stock_for_market(article_ids, m["id"])
+
+        def worker(item):
+            dist, m = item
+            session = make_session()  # eigene Session je Thread (thread-safe)
+            return dist, m, self._stock_for_market(session, article_ids, m["id"])
+
+        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+            rows = list(ex.map(worker, markets))
+
+        for dist, m, qty_by_art in rows:
             a = m.get("address", {})
             for pkey, art in art_by_product.items():
                 if art not in qty_by_art:
