@@ -488,10 +488,10 @@
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3453": {
-    "available": true,
+    "available": false,
     "city": "Mülheim/Ruhr",
     "price": null,
-    "quantity": 1,
+    "quantity": 0,
     "store_name": "Mülheim/Ruhr",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
@@ -568,10 +568,10 @@
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3686": {
-    "available": true,
+    "available": false,
     "city": "Jülich",
     "price": null,
-    "quantity": 1,
+    "quantity": 0,
     "store_name": "Jülich",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
