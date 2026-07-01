@@ -6,23 +6,24 @@ Datenquellen (oeffentlich, reverse-engineered von obi.de):
   * Pro Markt:    GET .../products/{sku}?storeId={storeId}
                   -> buyboxStates.roPo.available  (True == im Markt abholbar)
   * Markt-IDs:    data/obi_stores.json (einmalig via tools/build_obi_stores.py).
-                  OBI identifiziert Maerkte per storeId (nur auf der Marktseite),
-                  daher gecacht.
 
-Status: VERIFIZIERT (Raum Koeln, 54 Maerkte im Umkreis). sku = Zahl aus /p/<sku>/...
+Die Markt-Abfragen laufen PARALLEL (ThreadPool), damit ein Check schnell ist.
 """
 from __future__ import annotations
 
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from ..geo import geocode_plz, haversine_km
 from ..models import Product, StoreAvailability
+from ..web import make_session
 from .base import Retailer
 
 PRODUCT_API = "https://www.obi.de/api/pdp/v1/products/{sku}"
 STORE_CACHE = Path("data/obi_stores.json")
+MAX_WORKERS = 8
 
 
 class Obi(Retailer):
@@ -56,14 +57,14 @@ class Obi(Retailer):
         out.sort(key=lambda x: x[0])
         return out
 
-    def _product_json(self, sku: str, store_id: str | None = None):
+    def _product_json(self, session, sku: str, store_id: str | None = None):
         params = {"storeId": store_id} if store_id else None
         try:
-            r = self.session.get(
+            r = session.get(
                 PRODUCT_API.format(sku=sku),
                 params=params,
                 headers={"Accept": "application/json"},
-                timeout=25,
+                timeout=20,
             )
             if r.status_code != 200:
                 return None
@@ -89,12 +90,11 @@ class Obi(Retailer):
             sku = self._sku(url)
             if not sku:
                 continue
-            base = self._product_json(sku)
+            base = self._product_json(self.session, sku)
             if base is None:
                 print(f"[obi] {p.key}: Produkt-API nicht erreichbar")
                 continue
             bb = base.get("buyboxStates", {}) or {}
-            # Online-/Liefer-Signal (chain-weit)
             results.append(
                 StoreAvailability(
                     retailer=self.name,
@@ -106,9 +106,19 @@ class Obi(Retailer):
                     url=url,
                 )
             )
-            # Bestand pro Markt
-            for dist, st in stores:
-                data = self._product_json(sku, st["storeId"])
+            if not stores:
+                continue
+
+            def worker(item, sku=sku):
+                dist, st = item
+                session = make_session()  # eigene Session je Thread
+                data = self._product_json(session, sku, st["storeId"])
+                return dist, st, data
+
+            with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+                rows = list(ex.map(worker, stores))
+
+            for dist, st, data in rows:
                 results.append(
                     StoreAvailability(
                         retailer=self.name,
