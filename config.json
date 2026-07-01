@@ -42,6 +42,7 @@
     "globus": {
       "enabled": true,
       "engine": "browser",
+      "query": "portasplit",
       "products": { "8000": "0694600251", "12000": "0694600235" }
     }
   }
