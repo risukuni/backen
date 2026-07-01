@@ -48,7 +48,7 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           PLZ: ${{ secrets.PLZ }}
           RADIUS_KM: ${{ vars.RADIUS_KM }}
-        run: python run.py
+                run: python run.py --loop --interval 70 --max-runtime 270 --browser-every 5
 
       - name: Status speichern
         run: |
