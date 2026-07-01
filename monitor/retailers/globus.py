@@ -1,13 +1,14 @@
 """Globus Baumarkt: Browser-basierter Checker (laeuft NUR in GitHub Actions).
 
 Globus liefert Produktdaten nur ueber FACT-Finder mit client-seitigem
-Request-Signing (siehe README) -> echter (headless) Browser noetig.
+Request-Signing (siehe README) -> echter (headless) Browser noetig. Die volle
+Ergebnisliste laesst sich nicht zuverlaessig ausloesen, die Autocomplete-
+Vorschlaege (suggest, Channel GlobusBaumarktLive) aber schon -- und die
+enthalten Produkte inkl. Deeplink (/p/<slug>-<artikelnr>/).
 
-Signal: taucht die PortaSplit (per Artikelnummer / Deeplink) in den
-FACT-Finder-PRODUKT-Treffern (Channel GlobusBaumarktLive) auf, gilt sie als
-verfuegbar. Ausverkaufte Artikel filtert Globus aus den Ergebnissen -> tauchen
-sie NICHT auf, obwohl die Produkt-Suche Treffer lieferte, gilt das als nicht
-verfuegbar. Feuerte gar keine Produkt-Suche -> None (kein Alarm).
+Signal: Erscheint die PortaSplit (Artikelnummer im Deeplink) unter den
+Produkt-Vorschlaegen -> verfuegbar. Liefern die Vorschlaege Produkte, aber
+nicht die PortaSplit -> ausverkauft. Gar keine Produkt-Vorschlaege -> None.
 
 Konfiguration (config.json -> retailers.globus):
   "products": { "8000": "0694600251", "12000": "0694600235" }   # Artikelnummern
@@ -96,78 +97,40 @@ class Globus(Retailer):
                 diag.append(f"cookie={clicked}")
                 page.wait_for_timeout(1500)
 
-                # 1) Suche ueber das Suchfeld + Enter
                 found = page.evaluate(FOCUS_SEARCH)
                 diag.append(f"suchfeld={found}")
                 if found:
-                    page.keyboard.type(query, delay=90)
-                    page.wait_for_timeout(3000)
-                    try:
-                        page.keyboard.press("Enter")
-                        page.wait_for_load_state("networkidle", timeout=15000)
-                    except Exception:  # noqa: BLE001
-                        pass
-                    diag.append(f"url={page.url.split('://')[-1][:45]}")
-                    self._scroll(page)
-
-                # 2) Direkter Aufruf der Suchergebnis-Seite (loest Produkt-Suche aus)
-                try:
-                    page.goto(
-                        HOME + "search?search=" + query.replace(" ", "%20"),
-                        wait_until="domcontentloaded",
-                        timeout=30000,
-                    )
-                    try:
-                        page.wait_for_selector("ff-record-list", timeout=8000)
-                    except Exception:  # noqa: BLE001
-                        pass
-                    self._scroll(page)
-                except Exception as exc:  # noqa: BLE001
-                    diag.append(f"nav2={str(exc)[:40]}")
-
+                    # langsam tippen -> je Zeichen feuert ein suggest (Produkte sammeln sich)
+                    page.keyboard.type(query, delay=140)
+                    page.wait_for_timeout(5000)
                 browser.close()
         except Exception as exc:  # noqa: BLE001
             diag.append(f"fehler={str(exc)[:80]}")
 
-        # ---- Diagnose ins Log ----
-        print(f"[globus] Diagnose: {'; '.join(diag)}")
-        print(f"[globus] FF-Antworten: {len(ff)}")
-        product_search_hits = 0
-        seen = set()
-        for url, body in ff:
-            channel = url.rsplit("/", 1)[-1].split("?", 1)[0]
-            kind = "suggest" if "/suggest/" in url else ("search" if "/search/" in url else "other")
-            cnt = _count_items(body)
-            ac = any(a in json.dumps(body, ensure_ascii=False) for a in wanted)
-            if channel == PROD_CHANNEL and kind == "search":
-                product_search_hits += cnt
-            sig = (channel, kind, cnt, ac)
-            if sig not in seen:
-                seen.add(sig)
-                print(f"[globus]   {kind} {channel}: {cnt} Eintraege, PortaSplit-Treffer={ac}")
-        print(f"[globus] Produkt-Suchtreffer gesamt: {product_search_hits}")
+        print(f"[globus] Diagnose: {'; '.join(diag)} | FF-Antworten={len(ff)}")
+
+        prods = _extract_products(ff)
+        print(f"[globus] Produkt-Vorschlaege gefunden: {len(prods)}")
+        for p in prods[:10]:
+            print(f"[globus]   - {p['name'][:42]:42} {p['deeplink'][-46:]}")
 
         results: list[StoreAvailability] = []
         for art, product in wanted.items():
-            rec = None
-            for _, body in ff:
-                rec = _search_dict_for_article(body, art)
-                if rec is not None:
-                    break
-            if rec is not None:
-                fields = list(_flatten(rec).keys())
-                print(f"[globus] {product.key}: gefunden. Felder={fields[:25]}")
-                avail, price = self._interpret(rec)
+            match = next(
+                (p for p in prods if art in p["deeplink"] or art in json.dumps(p["rec"], ensure_ascii=False)),
+                None,
+            )
+            if match is not None:
+                avail, price = self._interpret(match["rec"])
                 if avail is None:
-                    avail = True  # taucht in Treffern auf -> verfuegbar
-            elif product_search_hits > 0:
-                # Produkt-Suche lieferte Treffer, aber ohne dieses Geraet -> ausverkauft
-                print(f"[globus] {product.key}: nicht in Produkt-Treffern -> nicht verfuegbar")
+                    avail = True  # erscheint unter Produkten -> verfuegbar
+                print(f"[globus] {product.key}: PortaSplit gelistet -> available={avail} price={price}")
+            elif prods:
                 avail, price = False, None
+                print(f"[globus] {product.key}: Produkte da, PortaSplit fehlt -> nicht verfuegbar")
             else:
-                # keine echte Produkt-Suche zustande gekommen -> unbekannt
-                print(f"[globus] {product.key}: keine Produkt-Suche -> unbekannt")
                 avail, price = None, None
+                print(f"[globus] {product.key}: keine Produkt-Vorschlaege -> unbekannt")
             results.append(
                 StoreAvailability(
                     retailer=self.name,
@@ -181,15 +144,6 @@ class Globus(Retailer):
                 )
             )
         return results
-
-    @staticmethod
-    def _scroll(page):
-        for _ in range(3):
-            try:
-                page.mouse.wheel(0, 1600)
-            except Exception:  # noqa: BLE001
-                pass
-            page.wait_for_timeout(2200)
 
     @staticmethod
     def _interpret(rec):
@@ -217,13 +171,27 @@ class Globus(Retailer):
         return avail, price
 
 
-def _count_items(body) -> int:
-    total = 0
-    for key in ("hits", "records", "suggestions"):
-        v = body.get(key) if isinstance(body, dict) else None
-        if isinstance(v, list):
-            total += len(v)
-    return total
+def _extract_products(ff) -> list[dict]:
+    """Produkt-Vorschlaege (mit Deeplink /p/...) aus allen suggest-Antworten ziehen."""
+    by_link: dict[str, dict] = {}
+    for url, body in ff:
+        if PROD_CHANNEL not in url or not isinstance(body, dict):
+            continue
+        suggs = body.get("suggestions")
+        if not isinstance(suggs, list):
+            continue
+        for sg in suggs:
+            flat = _flatten(sg)
+            deeplink = next((str(v) for v in flat.values() if isinstance(v, str) and "/p/" in v), None)
+            if not deeplink:
+                continue
+            name = next(
+                (str(v) for k, v in flat.items()
+                 if isinstance(v, str) and any(t in k.lower() for t in ("name", "label", "title"))),
+                "?",
+            )
+            by_link[deeplink] = {"name": name, "deeplink": deeplink, "rec": sg}
+    return list(by_link.values())
 
 
 def _flatten(obj, prefix="", out=None):
@@ -238,31 +206,3 @@ def _flatten(obj, prefix="", out=None):
     else:
         out[prefix.rstrip(".")] = obj
     return out
-
-
-def _has_signal(d) -> bool:
-    keys = " ".join(_flatten(d).keys()).lower()
-    return any(kw in keys for kw in ("price", "avail", "verfueg", "verfüg", "stock", "bestand", "deeplink"))
-
-
-def _search_dict_for_article(obj, article: str):
-    candidates: list[dict] = []
-
-    def walk(o):
-        if isinstance(o, dict):
-            s = json.dumps(o, ensure_ascii=False)
-            if article in s:
-                if len(s) < 8000:
-                    candidates.append(o)
-                for v in o.values():
-                    walk(v)
-        elif isinstance(o, list):
-            for v in o:
-                walk(v)
-
-    walk(obj)
-    if not candidates:
-        return None
-    with_signal = [d for d in candidates if _has_signal(d)]
-    pool = with_signal or candidates
-    return min(pool, key=lambda d: len(json.dumps(d, ensure_ascii=False)))
