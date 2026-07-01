@@ -1,1 +1,770 @@
-{}
+{
+  "hornbach|12000|online": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Hornbach (gelistet)",
+    "url": "https://www.hornbach.de/c/heizen-klima-lueftung/klimageraete/S1030/f/Marke=Midea"
+  },
+  "hornbach|8000|online": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Hornbach (gelistet)",
+    "url": "https://www.hornbach.de/c/heizen-klima-lueftung/klimageraete/S1030/f/Marke=Midea"
+  },
+  "obi|12000|027": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Aachen Roermonder Straße",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|036": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Kall",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|074": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Bergisch Gladbach-Bensberg",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|081": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Hattingen",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|105": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Meinerzhagen",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|121": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Gummersbach",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|127": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Düsseldorf-Lierenfeld",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|141": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Köln-Pesch",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|149": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Düsseldorf Heerdt",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|169": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Eschweiler",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|172": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Köln-Dellbrück",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|230": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Erkelenz",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|240": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Köln-Niehl",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|252": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Köln-Mülheim",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|262": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Euskirchen",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|291": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Nettetal-Kaldenkirchen",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|292": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Kempen",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|296": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Lindlar",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|299": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Königswinter",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|305": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Schwelm",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|319": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Burscheid",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|380": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Wuppertal",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|410": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Rheinbach",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|411": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Düsseldorf Rath",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|412": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Velbert",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|413": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Köln-Marsdorf",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|414": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Bonn-Süd",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|419": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Solingen",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|427": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Remscheid",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|429": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Kamp Lintfort",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|448": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Bergisch Gladbach",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|453": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Rösrath",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|455": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Neuss",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|464": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Viersen",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|472": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Siegburg",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|476": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Wermelskirchen",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|480": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Bonn-Nord",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|481": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Düren",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|504": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Leverkusen",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|523": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Alfter",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|526": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Sinzig",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|527": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Aachen Debyestraße",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|539": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Köln-Godorf",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|553": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Hilden",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|570": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Herzogenrath",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|589": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Kerpen",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|599": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Hückelhoven",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "obi|12000|online": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "OBI Online",
+    "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+  },
+  "toom|12000|3209": {
+    "available": false,
+    "city": "Duisburg-Kaßlerfeld",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Duisburg-Kaßlerfeld",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3248": {
+    "available": false,
+    "city": "Troisdorf",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Troisdorf",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3353": {
+    "available": false,
+    "city": "Herten",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Herten",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3373": {
+    "available": false,
+    "city": "Bochum",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Bochum",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3374": {
+    "available": false,
+    "city": "Mönchengladbach",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Mönchengladbach",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3376": {
+    "available": false,
+    "city": "Alsdorf",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Alsdorf",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3378": {
+    "available": false,
+    "city": "Hagen",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Hagen",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3379": {
+    "available": false,
+    "city": "Duisburg-Rheinhausen",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Duisburg-Rheinhausen",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3381": {
+    "available": false,
+    "city": "Gelsenkirchen",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Gelsenkirchen",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3453": {
+    "available": false,
+    "city": "Mülheim/Ruhr",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Mülheim/Ruhr",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3464": {
+    "available": false,
+    "city": "Köln-Zollstock",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Köln-Zollstock",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3466": {
+    "available": false,
+    "city": "Düren-Rölsdorf",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Düren",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3472": {
+    "available": false,
+    "city": "Witten",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Witten",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3530": {
+    "available": false,
+    "city": "Remagen",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Remagen",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3633": {
+    "available": false,
+    "city": "Bottrop",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Bottrop",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3658": {
+    "available": false,
+    "city": "Neukirchen-Vluyn",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Neukirchen-Vluyn",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3660": {
+    "available": false,
+    "city": "Langenfeld",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Langenfeld",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3661": {
+    "available": false,
+    "city": "Nettetal-Lobberich",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Nettetal-Lobberich",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3668": {
+    "available": false,
+    "city": "Bergheim-Zieverich",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Bergheim-Zieverich",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3686": {
+    "available": false,
+    "city": "Jülich",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Jülich",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3692": {
+    "available": false,
+    "city": "Gummersbach",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Gummersbach",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3793": {
+    "available": false,
+    "city": "Grevenbroich",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Grevenbroich",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|12000|3875": {
+    "available": false,
+    "city": "Voerde",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Voerde",
+    "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+  },
+  "toom|8000|3209": {
+    "available": false,
+    "city": "Duisburg-Kaßlerfeld",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Duisburg-Kaßlerfeld",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3248": {
+    "available": false,
+    "city": "Troisdorf",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Troisdorf",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3353": {
+    "available": false,
+    "city": "Herten",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Herten",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3373": {
+    "available": false,
+    "city": "Bochum",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Bochum",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3374": {
+    "available": false,
+    "city": "Mönchengladbach",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Mönchengladbach",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3376": {
+    "available": false,
+    "city": "Alsdorf",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Alsdorf",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3378": {
+    "available": false,
+    "city": "Hagen",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Hagen",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3379": {
+    "available": false,
+    "city": "Duisburg-Rheinhausen",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Duisburg-Rheinhausen",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3381": {
+    "available": false,
+    "city": "Gelsenkirchen",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Gelsenkirchen",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3453": {
+    "available": false,
+    "city": "Mülheim/Ruhr",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Mülheim/Ruhr",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3464": {
+    "available": false,
+    "city": "Köln-Zollstock",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Köln-Zollstock",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3466": {
+    "available": false,
+    "city": "Düren-Rölsdorf",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Düren",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3472": {
+    "available": false,
+    "city": "Witten",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Witten",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3530": {
+    "available": false,
+    "city": "Remagen",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Remagen",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3633": {
+    "available": false,
+    "city": "Bottrop",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Bottrop",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3658": {
+    "available": false,
+    "city": "Neukirchen-Vluyn",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Neukirchen-Vluyn",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3660": {
+    "available": false,
+    "city": "Langenfeld",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Langenfeld",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3661": {
+    "available": false,
+    "city": "Nettetal-Lobberich",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Nettetal-Lobberich",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3668": {
+    "available": false,
+    "city": "Bergheim-Zieverich",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Bergheim-Zieverich",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3686": {
+    "available": false,
+    "city": "Jülich",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Jülich",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3692": {
+    "available": false,
+    "city": "Gummersbach",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Gummersbach",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3793": {
+    "available": false,
+    "city": "Grevenbroich",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Grevenbroich",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  },
+  "toom|8000|3875": {
+    "available": false,
+    "city": "Voerde",
+    "price": null,
+    "quantity": 0,
+    "store_name": "Voerde",
+    "url": "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238"
+  }
+}
