@@ -12,7 +12,7 @@
 
   "retailers": {
     "bauhaus": {
-      "enabled": true,
+      "enabled": false,
       "products": {
         "8000":  "",
         "12000": "https://www.bauhaus.info/klimaanlagen/midea-klimasplitgeraet-portasplit-12000-btu/p/31934233"
