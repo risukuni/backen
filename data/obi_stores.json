@@ -1,0 +1,434 @@
+[
+  {
+    "slug": "kerpen",
+    "name": "Kerpen",
+    "city": "50171 Kerpen, Nordrhein-Westfalen",
+    "lat": 50.8828378,
+    "lon": 6.6919768,
+    "storeId": "589"
+  },
+  {
+    "slug": "erkelenz",
+    "name": "Erkelenz",
+    "city": "41812 Erkelenz, Nordrhein-Westfalen",
+    "lat": 51.0725316,
+    "lon": 6.3033888,
+    "storeId": "230"
+  },
+  {
+    "slug": "koeln-marsdorf",
+    "name": "Köln-Marsdorf",
+    "city": "50858 Köln, Nordrhein-Westfalen",
+    "lat": 50.9169937,
+    "lon": 6.8490935,
+    "storeId": "413"
+  },
+  {
+    "slug": "koeln-pesch",
+    "name": "Köln-Pesch",
+    "city": "50767 Koeln, Nordrhein-Westfalen",
+    "lat": 51.004614,
+    "lon": 6.875161,
+    "storeId": "141"
+  },
+  {
+    "slug": "neuss",
+    "name": "Neuss",
+    "city": "41464 Neuss, Nordrhein-Westfalen",
+    "lat": 51.187318,
+    "lon": 6.708666,
+    "storeId": "455"
+  },
+  {
+    "slug": "dueren",
+    "name": "Düren",
+    "city": "52351 Düren, Nordrhein-Westfalen",
+    "lat": 50.78177,
+    "lon": 6.50649,
+    "storeId": "481"
+  },
+  {
+    "slug": "hueckelhoven",
+    "name": "Hückelhoven",
+    "city": "41836 Hückelhoven, Nordrhein-Westfalen",
+    "lat": 51.0546635,
+    "lon": 6.2179963,
+    "storeId": "599"
+  },
+  {
+    "slug": "eschweiler",
+    "name": "Eschweiler",
+    "city": "52249 Eschweiler, Nordrhein-Westfalen",
+    "lat": 50.8201996,
+    "lon": 6.2976703,
+    "storeId": "169"
+  },
+  {
+    "slug": "duesseldorf-heerdt",
+    "name": "Düsseldorf Heerdt",
+    "city": "40549 Düsseldorf, Nordrhein-Westfalen",
+    "lat": 51.2275713,
+    "lon": 6.7030815,
+    "storeId": "149"
+  },
+  {
+    "slug": "koeln-niehl",
+    "name": "Köln-Niehl",
+    "city": "50735 Koeln, Nordrhein-Westfalen",
+    "lat": 50.9732864,
+    "lon": 6.9603515,
+    "storeId": "240"
+  },
+  {
+    "slug": "viersen",
+    "name": "Viersen",
+    "city": "41747 Viersen, Nordrhein-Westfalen",
+    "lat": 51.244224,
+    "lon": 6.4093811,
+    "storeId": "464"
+  },
+  {
+    "slug": "duesseldorf-lierenfeld",
+    "name": "Düsseldorf-Lierenfeld",
+    "city": "40231 Düsseldorf, Nordrhein-Westfalen",
+    "lat": 51.2165915,
+    "lon": 6.8257109,
+    "storeId": "127"
+  },
+  {
+    "slug": "leverkusen",
+    "name": "Leverkusen",
+    "city": "51373 Leverkusen, Nordrhein-Westfalen",
+    "lat": 51.0522252,
+    "lon": 7.0048336,
+    "storeId": "504"
+  },
+  {
+    "slug": "hilden",
+    "name": "Hilden",
+    "city": "40721 Hilden, Nordrhein-Westfalen",
+    "lat": 51.1746771,
+    "lon": 6.9131114,
+    "storeId": "553"
+  },
+  {
+    "slug": "koeln-muelheim",
+    "name": "Köln-Mülheim",
+    "city": "51065 Köln, Nordrhein-Westfalen",
+    "lat": 50.9503598,
+    "lon": 7.0158009,
+    "storeId": "252"
+  },
+  {
+    "slug": "koeln-godorf",
+    "name": "Köln-Godorf",
+    "city": "50997 Köln, Nordrhein-Westfalen",
+    "lat": 50.8589855,
+    "lon": 6.9731407,
+    "storeId": "539"
+  },
+  {
+    "slug": "herzogenrath",
+    "name": "Herzogenrath",
+    "city": "52134 Herzogenrath, Nordrhein-Westfalen",
+    "lat": 50.880599,
+    "lon": 6.115447,
+    "storeId": "570"
+  },
+  {
+    "slug": "koeln-dellbrueck",
+    "name": "Köln-Dellbrück",
+    "city": "51067 Koeln, Nordrhein-Westfalen",
+    "lat": 50.975247,
+    "lon": 7.056224,
+    "storeId": "172"
+  },
+  {
+    "slug": "duesseldorf-rath",
+    "name": "Düsseldorf Rath",
+    "city": "40472 Düsseldorf, Nordrhein-Westfalen",
+    "lat": 51.277576,
+    "lon": 6.797265,
+    "storeId": "411"
+  },
+  {
+    "slug": "bergisch-gladbach",
+    "name": "Bergisch Gladbach",
+    "city": "51465 Bergisch Gladbach, Nordrhein-Westfalen",
+    "lat": 50.9921773,
+    "lon": 7.1201412,
+    "storeId": "448"
+  },
+  {
+    "slug": "aachen-debyestrasse",
+    "name": "Aachen Debyestraße",
+    "city": "52078 Aachen, Nordrhein-Westfalen",
+    "lat": 50.7577453,
+    "lon": 6.1527182,
+    "storeId": "527"
+  },
+  {
+    "slug": "solingen",
+    "name": "Solingen",
+    "city": "42655 Solingen, Nordrhein-Westfalen",
+    "lat": 51.1740167,
+    "lon": 7.0710905,
+    "storeId": "419"
+  },
+  {
+    "slug": "burscheid",
+    "name": "Burscheid",
+    "city": "51399 Burscheid, Nordrhein-Westfalen",
+    "lat": 51.0839475,
+    "lon": 7.1299215,
+    "storeId": "319"
+  },
+  {
+    "slug": "bergisch-gladbach-bensberg",
+    "name": "Bergisch Gladbach-Bensberg",
+    "city": "51427 Bergisch Gladbach, Nordrhein-Westfalen",
+    "lat": 50.9583139,
+    "lon": 7.1448425,
+    "storeId": "074"
+  },
+  {
+    "slug": "euskirchen",
+    "name": "Euskirchen",
+    "city": "53879 Euskirchen, Nordrhein-Westfalen",
+    "lat": 50.6518144,
+    "lon": 6.7922099,
+    "storeId": "262"
+  },
+  {
+    "slug": "aachen-roermonder-strasse",
+    "name": "Aachen Roermonder Straße",
+    "city": "52072 Aachen, Nordrhein-Westfalen",
+    "lat": 50.7895231,
+    "lon": 6.0664045,
+    "storeId": "027"
+  },
+  {
+    "slug": "kempen",
+    "name": "Kempen",
+    "city": "47906 Kempen, Nordrhein-Westfalen",
+    "lat": 51.3741297,
+    "lon": 6.4180716,
+    "storeId": "292"
+  },
+  {
+    "slug": "nettetal-kaldenkirchen",
+    "name": "Nettetal-Kaldenkirchen",
+    "city": "41334 Nettetal, Nordrhein-Westfalen",
+    "lat": 51.3282964,
+    "lon": 6.2123184,
+    "storeId": "291"
+  },
+  {
+    "slug": "alfter",
+    "name": "Alfter",
+    "city": "53347 Alfter, Nordrhein-Westfalen",
+    "lat": 50.71613,
+    "lon": 7.028912,
+    "storeId": "523"
+  },
+  {
+    "slug": "roesrath",
+    "name": "Rösrath",
+    "city": "51503 Rösrath, Nordrhein-Westfalen",
+    "lat": 50.8833272,
+    "lon": 7.1887205,
+    "storeId": "453"
+  },
+  {
+    "slug": "bonn-nord",
+    "name": "Bonn-Nord",
+    "city": "53119 Bonn, Nordrhein-Westfalen",
+    "lat": 50.738222,
+    "lon": 7.080565,
+    "storeId": "480"
+  },
+  {
+    "slug": "wermelskirchen",
+    "name": "Wermelskirchen",
+    "city": "42929 Wermelskirchen, Nordrhein-Westfalen",
+    "lat": 51.1353816,
+    "lon": 7.1958768,
+    "storeId": "476"
+  },
+  {
+    "slug": "siegburg",
+    "name": "Siegburg",
+    "city": "53721 Siegburg, Nordrhein-Westfalen",
+    "lat": 50.799248,
+    "lon": 7.186263,
+    "storeId": "472"
+  },
+  {
+    "slug": "wuppertal",
+    "name": "Wuppertal",
+    "city": "42103 Wuppertal, Nordrhein-Westfalen",
+    "lat": 51.2484828,
+    "lon": 7.1363983,
+    "storeId": "380"
+  },
+  {
+    "slug": "remscheid",
+    "name": "Remscheid",
+    "city": "42859 Remscheid, Nordrhein-Westfalen",
+    "lat": 51.176056,
+    "lon": 7.210911,
+    "storeId": "427"
+  },
+  {
+    "slug": "rheinbach",
+    "name": "Rheinbach",
+    "city": "53359 Rheinbach, Nordrhein-Westfalen",
+    "lat": 50.6243697,
+    "lon": 6.964463,
+    "storeId": "410"
+  },
+  {
+    "slug": "kall",
+    "name": "Kall",
+    "city": "53925 Kall, Nordrhein-Westfalen",
+    "lat": 50.5419151,
+    "lon": 6.5750538,
+    "storeId": "036"
+  },
+  {
+    "slug": "velbert",
+    "name": "Velbert",
+    "city": "42551 Velbert, Nordrhein-Westfalen",
+    "lat": 51.3403892,
+    "lon": 7.0557308,
+    "storeId": "412"
+  },
+  {
+    "slug": "bonn-sued",
+    "name": "Bonn-Süd",
+    "city": "53175 Bonn, Nordrhein-Westfalen",
+    "lat": 50.6944304,
+    "lon": 7.1389747,
+    "storeId": "414"
+  },
+  {
+    "slug": "koenigswinter",
+    "name": "Königswinter",
+    "city": "53639 Königswinter, Nordrhein-Westfalen",
+    "lat": 50.7016416,
+    "lon": 7.1771702,
+    "storeId": "299"
+  },
+  {
+    "slug": "kamp-lintfort",
+    "name": "Kamp Lintfort",
+    "city": "47475 Kamp Lintfort, Nordrhein-Westfalen",
+    "lat": 51.510298,
+    "lon": 6.54669,
+    "storeId": "429"
+  },
+  {
+    "slug": "lindlar",
+    "name": "Lindlar",
+    "city": "51789 Lindlar, Nordrhein-Westfalen",
+    "lat": 51.028387,
+    "lon": 7.411995,
+    "storeId": "296"
+  },
+  {
+    "slug": "schwelm",
+    "name": "Schwelm",
+    "city": "58332 Schwelm, Nordrhein-Westfalen",
+    "lat": 51.2920029,
+    "lon": 7.2855915,
+    "storeId": "305"
+  },
+  {
+    "slug": "hattingen",
+    "name": "Hattingen",
+    "city": "45525 Hattingen, Nordrhein-Westfalen",
+    "lat": 51.3906295,
+    "lon": 7.172786,
+    "storeId": "081"
+  },
+  {
+    "slug": "gummersbach",
+    "name": "Gummersbach",
+    "city": "51645 Gummersbach, Nordrhein-Westfalen",
+    "lat": 50.983509,
+    "lon": 7.519653,
+    "storeId": "121"
+  },
+  {
+    "slug": "sinzig",
+    "name": "Sinzig",
+    "city": "53489 Sinzig, Rheinland-Pfalz",
+    "lat": 50.544399,
+    "lon": 7.266597,
+    "storeId": "526"
+  },
+  {
+    "slug": "meinerzhagen",
+    "name": "Meinerzhagen",
+    "city": "58540 Meinerzhagen, Nordrhein-Westfalen",
+    "lat": 51.1012056,
+    "lon": 7.6796821,
+    "storeId": "105"
+  },
+  {
+    "slug": "recklinghausen",
+    "name": "Recklinghausen",
+    "city": "45665 Recklinghausen, Nordrhein-Westfalen",
+    "lat": 51.595723,
+    "lon": 7.245267,
+    "storeId": "540"
+  },
+  {
+    "slug": "luedenscheid",
+    "name": "Lüdenscheid",
+    "city": "58513 Lüdenscheid, Nordrhein-Westfalen",
+    "lat": 51.238809,
+    "lon": 7.675937,
+    "storeId": "376"
+  },
+  {
+    "slug": "mayen",
+    "name": "Mayen",
+    "city": "56727 Mayen, Rheinland-Pfalz",
+    "lat": 50.3263338,
+    "lon": 7.2530885,
+    "storeId": "379"
+  },
+  {
+    "slug": "olpe",
+    "name": "Olpe",
+    "city": "57462 Olpe, Nordrhein-Westfalen",
+    "lat": 51.019196,
+    "lon": 7.8396545,
+    "storeId": "003"
+  },
+  {
+    "slug": "emmerich",
+    "name": "Emmerich",
+    "city": "46446 Emmerich, Nordrhein-Westfalen",
+    "lat": 51.848979,
+    "lon": 6.269154,
+    "storeId": "541"
+  },
+  {
+    "slug": "borken",
+    "name": "Borken",
+    "city": "46325 Borken, Nordrhein-Westfalen",
+    "lat": 51.8493215,
+    "lon": 6.8689228,
+    "storeId": "173"
+  },
+  {
+    "slug": "siegen-weidenau",
+    "name": "Siegen-Weidenau",
+    "city": "57076 Siegen, Nordrhein-Westfalen",
+    "lat": 50.8983058,
+    "lon": 8.0250529,
+    "storeId": "115"
+  }
+]

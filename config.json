@@ -1,0 +1,48 @@
+{
+  "plz": "50181",
+  "radius_km": 80,
+
+  "discord_webhook_url": "",
+  "mention": "",
+
+  "products": [
+    { "key": "8000",  "label": "Midea PortaSplit 8.000 BTU" },
+    { "key": "12000", "label": "Midea PortaSplit 12.000 BTU" }
+  ],
+
+  "retailers": {
+    "bauhaus": {
+      "enabled": true,
+      "products": {
+        "8000":  "",
+        "12000": "https://www.bauhaus.info/klimaanlagen/midea-klimasplitgeraet-portasplit-12000-btu/p/31934233"
+      }
+    },
+    "obi": {
+      "enabled": true,
+      "products": {
+        "8000":  "",
+        "12000": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
+      }
+    },
+    "toom": {
+      "enabled": true,
+      "products": {
+        "8000":  "https://toom.de/p/split-klimaanlage-portasplit-cool-8000btuh/10515238",
+        "12000": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
+      }
+    },
+    "hornbach": {
+      "enabled": true,
+      "products": {
+        "8000":  "",
+        "12000": ""
+      }
+    },
+    "globus": {
+      "enabled": true,
+      "engine": "browser",
+      "products": { "8000": "0694600251", "12000": "0694600235" }
+    }
+  }
+}
