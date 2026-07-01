@@ -7,15 +7,17 @@ die Signaturen stimmen und FF antwortet.
 
 Ansatz:
   1. Browser oeffnet globus-baumarkt.de, Cookie-Consent bestaetigen.
-  2. Pro Produkt die Artikelnummer in die FF-Suche tippen (articleNumberSearch).
-  3. ALLE fact-finder.de-JSON-Antworten abfangen; den Datensatz mit der
-     Artikelnummer suchen und Verfuegbarkeit/Preis heuristisch bestimmen.
-  4. Defensiv: kann die Verfuegbarkeit nicht sicher bestimmt werden -> None
-     (kein Alarm). Beim ersten Lauf werden die Feldnamen geloggt, damit die
-     Heuristik nachgeschaerft werden kann.
+  2. Produktnamen in die FF-Suche tippen (nach Name feuert FF zuverlaessig),
+     dann Enter -> Ergebnisseite.
+  3. ALLE fact-finder.de-JSON-Antworten abfangen; Datensatz mit der
+     Artikelnummer suchen (die steckt auch im Deeplink /p/...-<nr>/) und
+     Verfuegbarkeit/Preis heuristisch bestimmen.
+  4. Defensiv + diagnose-stark: unklar -> None (kein Alarm); es wird geloggt,
+     was der Browser gemacht hat und was FF geliefert hat.
 
 Konfiguration (config.json -> retailers.globus):
   "products": { "8000": "0694600251", "12000": "0694600235" }   # Artikelnummern
+  "query":    "midea portasplit"   # optional, Standard s. u.
 """
 from __future__ import annotations
 
@@ -26,19 +28,31 @@ from ..models import Product, StoreAvailability
 from .base import Retailer
 
 HOME = "https://www.globus-baumarkt.de/"
-COOKIE_ACCEPT = "[data-cookiefirst-action='accept']"
+DEFAULT_QUERY = "midea portasplit"
+UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+)
+COOKIE_SELECTORS = [
+    "[data-cookiefirst-action='accept']",
+    "button#cookiefirst-accept",
+    "button:has-text('Alle akzeptieren')",
+    "button:has-text('Akzeptieren')",
+    "button:has-text('Zustimmen')",
+]
 
-# JS: Suchfeld im Shadow DOM finden und fokussieren
+# JS: Suchfeld (auch in Shadow-DOM) finden und fokussieren
 FOCUS_SEARCH = (
     "()=>{let f=null;function w(r){const i=r.querySelector&&"
     "r.querySelector(\"input[type=search],input[name=search]\");if(i&&!f)f=i;"
     "r.querySelectorAll&&r.querySelectorAll('*').forEach(el=>{if(el.shadowRoot)w(el.shadowRoot);});}"
-    "w(document);if(f){f.focus();f.value='';return true;}return false;}"
+    "w(document);if(f){f.focus();try{f.value='';}catch(e){}return true;}return false;}"
 )
 
-# Feldnamen, die auf Verfuegbarkeit/Bestand hindeuten
-AVAIL_HINTS = ("availab", "verfueg", "verfüg", "bestand", "instock", "stock", "lieferbar")
-UNAVAIL_TOKENS = ("nicht verfüg", "nicht verfueg", "ausverkauft", "nicht lieferbar", "0", "false", "nein", "no")
+AVAIL_HINTS = ("availab", "verfueg", "verfüg", "bestand", "instock", "lieferbar", "stock")
+AVAIL_TRUE = ("true", "1", "ja", "yes", "verfügbar", "verfuegbar", "lieferbar", "instock")
+AVAIL_FALSE = ("false", "0", "nein", "no", "nicht verfügbar", "nicht verfuegbar",
+               "ausverkauft", "nicht lieferbar", "soldout", "outofstock")
 
 
 class Globus(Retailer):
@@ -51,82 +65,101 @@ class Globus(Retailer):
             print("[globus] playwright nicht installiert -> uebersprungen")
             return []
 
-        art_by_key = (self.cfg.get("products") or {})
-        wanted = {art_by_key.get(p.key): p for p in products if art_by_key.get(p.key)}
+        art_by_key = self.cfg.get("products") or {}
+        wanted = {str(art_by_key[p.key]): p for p in products if art_by_key.get(p.key)}
         if not wanted:
             print("[globus] keine Artikelnummern konfiguriert")
             return []
+        query = self.cfg.get("query") or DEFAULT_QUERY
 
-        results: list[StoreAvailability] = []
+        ff: list[tuple[str, dict]] = []
+        diag: list[str] = []
         try:
             with sync_playwright() as pw:
                 browser = pw.chromium.launch(
                     headless=True,
                     args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
                 )
-                page = browser.new_page()
-                ff_bodies: list[dict] = []
+                ctx = browser.new_context(locale="de-DE", user_agent=UA)
+                page = ctx.new_page()
 
                 def on_response(resp):
                     if "fact-finder.de" in resp.url:
                         try:
-                            ff_bodies.append(resp.json())
+                            ff.append((resp.url, resp.json()))
                         except Exception:  # noqa: BLE001
                             pass
 
                 page.on("response", on_response)
                 page.goto(HOME, wait_until="domcontentloaded", timeout=45000)
-                try:
-                    page.click(COOKIE_ACCEPT, timeout=6000)
-                except Exception:  # noqa: BLE001
-                    pass
+
+                clicked = False
+                for sel in COOKIE_SELECTORS:
+                    try:
+                        page.click(sel, timeout=3000)
+                        clicked = True
+                        break
+                    except Exception:  # noqa: BLE001
+                        continue
+                diag.append(f"cookie={clicked}")
                 page.wait_for_timeout(1500)
 
-                for art, product in wanted.items():
-                    ff_bodies.clear()
-                    ok = page.evaluate(FOCUS_SEARCH)
-                    if not ok:
-                        print("[globus] Suchfeld nicht gefunden")
-                        continue
-                    page.keyboard.type(str(art), delay=90)
-                    page.wait_for_timeout(6000)
-                    rec = self._find_record(ff_bodies, str(art))
-                    avail, price = self._interpret(rec, str(art))
-                    if rec is None:
-                        print(f"[globus] {product.key}: Artikel {art} nicht in FF-Antworten gefunden")
-                    else:
-                        print(f"[globus] {product.key}: Feldnamen={list(_flatten(rec).keys())[:25]}")
-                    results.append(
-                        StoreAvailability(
-                            retailer=self.name,
-                            product_key=product.key,
-                            product_label=product.label,
-                            store_id="online",
-                            store_name="Globus",
-                            available=avail,
-                            price=price,
-                            url=HOME,
-                        )
-                    )
+                found = page.evaluate(FOCUS_SEARCH)
+                diag.append(f"suchfeld={found}")
+                if found:
+                    page.keyboard.type(query, delay=90)
+                    page.wait_for_timeout(4500)          # suggest abwarten
+                    try:
+                        page.keyboard.press("Enter")     # volle Suche/Records
+                        page.wait_for_load_state("networkidle", timeout=15000)
+                    except Exception:  # noqa: BLE001
+                        pass
+                    page.wait_for_timeout(3500)
                 browser.close()
         except Exception as exc:  # noqa: BLE001
-            print(f"[globus] Browser-Fehler: {exc}")
+            diag.append(f"fehler={str(exc)[:80]}")
+
+        # ---- Diagnose ins Log ----
+        print(f"[globus] Diagnose: {'; '.join(diag)}")
+        paths: dict[str, int] = {}
+        for url, _ in ff:
+            key = url.split("/fact-finder", 1)[-1].split("?", 1)[0]
+            paths[key] = paths.get(key, 0) + 1
+        print(f"[globus] FF-Antworten: {len(ff)} | Pfade: {paths}")
+
+        results: list[StoreAvailability] = []
+        for art, product in wanted.items():
+            rec = None
+            for _, body in ff:
+                rec = _search_dict_for_article(body, art)
+                if rec is not None:
+                    break
+            if rec is None:
+                anywhere = any(art in json.dumps(b, ensure_ascii=False) for _, b in ff)
+                print(f"[globus] {product.key}: kein Record. Artikel {art} irgendwo in FF={anywhere}")
+                avail, price = None, None
+            else:
+                fields = list(_flatten(rec).keys())
+                print(f"[globus] {product.key}: Record gefunden. Felder={fields[:30]}")
+                avail, price = self._interpret(rec)
+                print(f"[globus] {product.key}: available={avail} price={price}")
+            results.append(
+                StoreAvailability(
+                    retailer=self.name,
+                    product_key=product.key,
+                    product_label=product.label,
+                    store_id="online",
+                    store_name="Globus",
+                    available=avail,
+                    price=price,
+                    url=HOME,
+                )
+            )
         return results
 
     @staticmethod
-    def _find_record(bodies: list[dict], article: str):
-        """Sucht in allen FF-Antworten den Datensatz mit der Artikelnummer."""
-        for body in bodies:
-            hit = _search_dict_for_article(body, article)
-            if hit is not None:
-                return hit
-        return None
-
-    @staticmethod
-    def _interpret(rec, article: str):
+    def _interpret(rec):
         """(available, price) heuristisch aus dem Datensatz bestimmen. None = unsicher."""
-        if rec is None:
-            return None, None
         flat = _flatten(rec)
         price = None
         for k, v in flat.items():
@@ -142,9 +175,9 @@ class Globus(Retailer):
         for k, v in flat.items():
             if any(h in k.lower() for h in AVAIL_HINTS):
                 sval = str(v).strip().lower()
-                if sval in ("true", "1", "ja", "yes", "verfügbar", "verfuegbar", "lieferbar"):
+                if sval in AVAIL_TRUE:
                     avail = True
-                elif sval in UNAVAIL_TOKENS:
+                elif sval in AVAIL_FALSE:
                     avail = False
                 elif sval.isdigit():
                     avail = int(sval) > 0
@@ -165,21 +198,31 @@ def _flatten(obj, prefix="", out=None):
     return out
 
 
+def _has_signal(d) -> bool:
+    keys = " ".join(_flatten(d).keys()).lower()
+    return any(kw in keys for kw in ("price", "avail", "verfueg", "verfüg", "stock", "bestand", "deeplink"))
+
+
 def _search_dict_for_article(obj, article: str):
-    """Findet das kleinste dict, das die Artikelnummer enthaelt (der Produkt-Record)."""
-    if isinstance(obj, dict):
-        s = json.dumps(obj, ensure_ascii=False)
-        if article in s:
-            # tiefer suchen nach einem spezifischeren Teil-Record
-            for v in obj.values():
-                deeper = _search_dict_for_article(v, article)
-                if deeper is not None:
-                    return deeper
-            if len(s) < 4000:
-                return obj
-    elif isinstance(obj, list):
-        for v in obj:
-            deeper = _search_dict_for_article(v, article)
-            if deeper is not None:
-                return deeper
-    return None
+    """Waehlt aus allen dicts, die die Artikelnummer enthalten, den aussagekraeftigsten
+    (kleinstes dict, das noch Preis-/Verfuegbarkeits-/Deeplink-Signale traegt)."""
+    candidates: list[dict] = []
+
+    def walk(o):
+        if isinstance(o, dict):
+            s = json.dumps(o, ensure_ascii=False)
+            if article in s:
+                if len(s) < 8000:
+                    candidates.append(o)
+                for v in o.values():
+                    walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+
+    walk(obj)
+    if not candidates:
+        return None
+    with_signal = [d for d in candidates if _has_signal(d)]
+    pool = with_signal or candidates
+    return min(pool, key=lambda d: len(json.dumps(d, ensure_ascii=False)))
