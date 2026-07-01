@@ -1,4 +1,20 @@
 {
+  "globus|12000|online": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Globus",
+    "url": "https://www.globus-baumarkt.de/"
+  },
+  "globus|8000|online": {
+    "available": false,
+    "city": "",
+    "price": null,
+    "quantity": null,
+    "store_name": "Globus",
+    "url": "https://www.globus-baumarkt.de/"
+  },
   "hornbach|12000|online": {
     "available": false,
     "city": "",
