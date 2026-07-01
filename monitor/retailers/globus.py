@@ -1,23 +1,17 @@
 """Globus Baumarkt: Browser-basierter Checker (laeuft NUR in GitHub Actions).
 
-Warum Browser: Globus liefert Produktdaten ausschliesslich ueber FACT-Finder,
-das mit client-seitigem Request-Signing geschuetzt ist (siehe README). Direkte
-HTTP-Abrufe -> 401. Ein echter (headless) Browser fuehrt das FF-SDK aus, damit
-die Signaturen stimmen und FF antwortet.
+Globus liefert Produktdaten nur ueber FACT-Finder mit client-seitigem
+Request-Signing (siehe README) -> echter (headless) Browser noetig.
 
-Ansatz:
-  1. Browser oeffnet globus-baumarkt.de, Cookie-Consent bestaetigen.
-  2. Produktnamen in die FF-Suche tippen (nach Name feuert FF zuverlaessig),
-     dann Enter -> Ergebnisseite.
-  3. ALLE fact-finder.de-JSON-Antworten abfangen; Datensatz mit der
-     Artikelnummer suchen (die steckt auch im Deeplink /p/...-<nr>/) und
-     Verfuegbarkeit/Preis heuristisch bestimmen.
-  4. Defensiv + diagnose-stark: unklar -> None (kein Alarm); es wird geloggt,
-     was der Browser gemacht hat und was FF geliefert hat.
+Signal: taucht die PortaSplit (per Artikelnummer / Deeplink) in den
+FACT-Finder-PRODUKT-Treffern (Channel GlobusBaumarktLive) auf, gilt sie als
+verfuegbar. Ausverkaufte Artikel filtert Globus aus den Ergebnissen -> tauchen
+sie NICHT auf, obwohl die Produkt-Suche Treffer lieferte, gilt das als nicht
+verfuegbar. Feuerte gar keine Produkt-Suche -> None (kein Alarm).
 
 Konfiguration (config.json -> retailers.globus):
   "products": { "8000": "0694600251", "12000": "0694600235" }   # Artikelnummern
-  "query":    "midea portasplit"   # optional, Standard s. u.
+  "query":    "midea portasplit"   # optional
 """
 from __future__ import annotations
 
@@ -28,6 +22,7 @@ from ..models import Product, StoreAvailability
 from .base import Retailer
 
 HOME = "https://www.globus-baumarkt.de/"
+PROD_CHANNEL = "GlobusBaumarktLive"
 DEFAULT_QUERY = "midea portasplit"
 UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -38,10 +33,7 @@ COOKIE_SELECTORS = [
     "button#cookiefirst-accept",
     "button:has-text('Alle akzeptieren')",
     "button:has-text('Akzeptieren')",
-    "button:has-text('Zustimmen')",
 ]
-
-# JS: Suchfeld (auch in Shadow-DOM) finden und fokussieren
 FOCUS_SEARCH = (
     "()=>{let f=null;function w(r){const i=r.querySelector&&"
     "r.querySelector(\"input[type=search],input[name=search]\");if(i&&!f)f=i;"
@@ -104,28 +96,56 @@ class Globus(Retailer):
                 diag.append(f"cookie={clicked}")
                 page.wait_for_timeout(1500)
 
+                # 1) Suche ueber das Suchfeld + Enter
                 found = page.evaluate(FOCUS_SEARCH)
                 diag.append(f"suchfeld={found}")
                 if found:
                     page.keyboard.type(query, delay=90)
-                    page.wait_for_timeout(4500)          # suggest abwarten
+                    page.wait_for_timeout(3000)
                     try:
-                        page.keyboard.press("Enter")     # volle Suche/Records
+                        page.keyboard.press("Enter")
                         page.wait_for_load_state("networkidle", timeout=15000)
                     except Exception:  # noqa: BLE001
                         pass
-                    page.wait_for_timeout(3500)
+                    diag.append(f"url={page.url.split('://')[-1][:45]}")
+                    self._scroll(page)
+
+                # 2) Direkter Aufruf der Suchergebnis-Seite (loest Produkt-Suche aus)
+                try:
+                    page.goto(
+                        HOME + "search?search=" + query.replace(" ", "%20"),
+                        wait_until="domcontentloaded",
+                        timeout=30000,
+                    )
+                    try:
+                        page.wait_for_selector("ff-record-list", timeout=8000)
+                    except Exception:  # noqa: BLE001
+                        pass
+                    self._scroll(page)
+                except Exception as exc:  # noqa: BLE001
+                    diag.append(f"nav2={str(exc)[:40]}")
+
                 browser.close()
         except Exception as exc:  # noqa: BLE001
             diag.append(f"fehler={str(exc)[:80]}")
 
         # ---- Diagnose ins Log ----
         print(f"[globus] Diagnose: {'; '.join(diag)}")
-        paths: dict[str, int] = {}
-        for url, _ in ff:
-            key = url.split("/fact-finder", 1)[-1].split("?", 1)[0]
-            paths[key] = paths.get(key, 0) + 1
-        print(f"[globus] FF-Antworten: {len(ff)} | Pfade: {paths}")
+        print(f"[globus] FF-Antworten: {len(ff)}")
+        product_search_hits = 0
+        seen = set()
+        for url, body in ff:
+            channel = url.rsplit("/", 1)[-1].split("?", 1)[0]
+            kind = "suggest" if "/suggest/" in url else ("search" if "/search/" in url else "other")
+            cnt = _count_items(body)
+            ac = any(a in json.dumps(body, ensure_ascii=False) for a in wanted)
+            if channel == PROD_CHANNEL and kind == "search":
+                product_search_hits += cnt
+            sig = (channel, kind, cnt, ac)
+            if sig not in seen:
+                seen.add(sig)
+                print(f"[globus]   {kind} {channel}: {cnt} Eintraege, PortaSplit-Treffer={ac}")
+        print(f"[globus] Produkt-Suchtreffer gesamt: {product_search_hits}")
 
         results: list[StoreAvailability] = []
         for art, product in wanted.items():
@@ -134,15 +154,20 @@ class Globus(Retailer):
                 rec = _search_dict_for_article(body, art)
                 if rec is not None:
                     break
-            if rec is None:
-                anywhere = any(art in json.dumps(b, ensure_ascii=False) for _, b in ff)
-                print(f"[globus] {product.key}: kein Record. Artikel {art} irgendwo in FF={anywhere}")
-                avail, price = None, None
-            else:
+            if rec is not None:
                 fields = list(_flatten(rec).keys())
-                print(f"[globus] {product.key}: Record gefunden. Felder={fields[:30]}")
+                print(f"[globus] {product.key}: gefunden. Felder={fields[:25]}")
                 avail, price = self._interpret(rec)
-                print(f"[globus] {product.key}: available={avail} price={price}")
+                if avail is None:
+                    avail = True  # taucht in Treffern auf -> verfuegbar
+            elif product_search_hits > 0:
+                # Produkt-Suche lieferte Treffer, aber ohne dieses Geraet -> ausverkauft
+                print(f"[globus] {product.key}: nicht in Produkt-Treffern -> nicht verfuegbar")
+                avail, price = False, None
+            else:
+                # keine echte Produkt-Suche zustande gekommen -> unbekannt
+                print(f"[globus] {product.key}: keine Produkt-Suche -> unbekannt")
+                avail, price = None, None
             results.append(
                 StoreAvailability(
                     retailer=self.name,
@@ -158,8 +183,16 @@ class Globus(Retailer):
         return results
 
     @staticmethod
+    def _scroll(page):
+        for _ in range(3):
+            try:
+                page.mouse.wheel(0, 1600)
+            except Exception:  # noqa: BLE001
+                pass
+            page.wait_for_timeout(2200)
+
+    @staticmethod
     def _interpret(rec):
-        """(available, price) heuristisch aus dem Datensatz bestimmen. None = unsicher."""
         flat = _flatten(rec)
         price = None
         for k, v in flat.items():
@@ -184,6 +217,15 @@ class Globus(Retailer):
         return avail, price
 
 
+def _count_items(body) -> int:
+    total = 0
+    for key in ("hits", "records", "suggestions"):
+        v = body.get(key) if isinstance(body, dict) else None
+        if isinstance(v, list):
+            total += len(v)
+    return total
+
+
 def _flatten(obj, prefix="", out=None):
     if out is None:
         out = {}
@@ -204,8 +246,6 @@ def _has_signal(d) -> bool:
 
 
 def _search_dict_for_article(obj, article: str):
-    """Waehlt aus allen dicts, die die Artikelnummer enthalten, den aussagekraeftigsten
-    (kleinstes dict, das noch Preis-/Verfuegbarkeits-/Deeplink-Signale traegt)."""
     candidates: list[dict] = []
 
     def walk(o):
