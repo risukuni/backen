@@ -1,0 +1,63 @@
+# WICHTIG: Repo auf PUBLIC stellen -> GitHub Actions sind dann GRATIS unbegrenzt.
+# Im Code stehen keine Geheimnisse (PLZ + Discord-Webhook liegen in den Secrets).
+# Bei einem PRIVATEN Repo reichen die 2000 Gratis-Minuten/Monat bei 15-Min-Takt
+# nicht aus (dann Takt erhoehen, z. B. */30, oder Repo public machen).
+name: PortaSplit Restock Monitor
+
+on:
+  schedule:
+    # alle 15 Minuten (UTC). GitHub kann sich um einige Minuten verzoegern.
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}   # manuelles Starten ueber den Actions-Tab
+
+concurrency:
+  group: portasplit-monitor
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # noetig, um data/state.json zwischen Laeufen zu speichern
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Abhaengigkeiten
+        run: pip install -r requirements.txt
+
+      # Browser fuer Globus (FACT-Finder laeuft nur im echten Browser).
+      # Gecacht, damit nicht jeder Lauf neu heruntergeladen wird.
+      # Wird Globus in config.json deaktiviert, koennen diese 2 Schritte weg.
+      - name: Playwright-Browser cachen
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}
+
+      - name: Playwright-Browser installieren
+        run: python -m playwright install --with-deps chromium
+
+      - name: Restock-Check
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          PLZ: ${{ secrets.PLZ }}
+          RADIUS_KM: ${{ vars.RADIUS_KM }}
+        run: python run.py
+
+      - name: Status speichern
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/state.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "state: update [skip ci]"
+            git push
+          else
+            echo "Kein Status-Update."
+          fi
