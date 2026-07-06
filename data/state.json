@@ -416,34 +416,34 @@
     "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
   },
   "toom|12000|3209": {
-    "available": false,
+    "available": true,
     "city": "Duisburg-Kaßlerfeld",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Duisburg-Kaßlerfeld",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3248": {
-    "available": false,
+    "available": true,
     "city": "Troisdorf",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Troisdorf",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3353": {
-    "available": false,
+    "available": true,
     "city": "Herten",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Herten",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3373": {
-    "available": false,
+    "available": true,
     "city": "Bochum",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Bochum",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
@@ -472,10 +472,10 @@
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3379": {
-    "available": false,
+    "available": true,
     "city": "Duisburg-Rheinhausen",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Duisburg-Rheinhausen",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
@@ -488,10 +488,10 @@
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3453": {
-    "available": false,
+    "available": true,
     "city": "Mülheim/Ruhr",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Mülheim/Ruhr",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
@@ -504,42 +504,42 @@
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3466": {
-    "available": false,
+    "available": true,
     "city": "Düren-Rölsdorf",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Düren",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3472": {
-    "available": false,
+    "available": true,
     "city": "Witten",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Witten",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3530": {
-    "available": false,
+    "available": true,
     "city": "Remagen",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Remagen",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3633": {
-    "available": false,
+    "available": true,
     "city": "Bottrop",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Bottrop",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3658": {
-    "available": false,
+    "available": true,
     "city": "Neukirchen-Vluyn",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Neukirchen-Vluyn",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
@@ -560,10 +560,10 @@
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3668": {
-    "available": false,
+    "available": true,
     "city": "Bergheim-Zieverich",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Bergheim-Zieverich",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
@@ -576,10 +576,10 @@
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3692": {
-    "available": false,
+    "available": true,
     "city": "Gummersbach",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Gummersbach",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
