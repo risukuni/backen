@@ -200,7 +200,7 @@
     "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
   },
   "obi|12000|380": {
-    "available": false,
+    "available": true,
     "city": "",
     "price": null,
     "quantity": null,
