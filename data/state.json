@@ -216,7 +216,7 @@
     "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
   },
   "obi|12000|411": {
-    "available": false,
+    "available": true,
     "city": "",
     "price": null,
     "quantity": null,
@@ -368,7 +368,7 @@
     "url": "https://www.obi.de/p/8620890/midea-mobile-split-klimaanlage-portasplit"
   },
   "obi|12000|539": {
-    "available": false,
+    "available": true,
     "city": "",
     "price": null,
     "quantity": null,
