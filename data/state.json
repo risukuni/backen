@@ -472,10 +472,10 @@
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3379": {
-    "available": false,
+    "available": true,
     "city": "Duisburg-Rheinhausen",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Duisburg-Rheinhausen",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
@@ -552,10 +552,10 @@
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
   "toom|12000|3661": {
-    "available": false,
+    "available": true,
     "city": "Nettetal-Lobberich",
     "price": null,
-    "quantity": 0,
+    "quantity": 1,
     "store_name": "Nettetal-Lobberich",
     "url": "https://toom.de/p/mobiles-klimageraet-portasplit-12000-btuh/9350668"
   },
